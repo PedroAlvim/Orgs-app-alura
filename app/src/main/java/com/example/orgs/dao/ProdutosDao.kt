@@ -5,7 +5,7 @@ import com.example.orgs.model.Produtos
 
 class ProdutosDao {
 
-    fun adiciona(produto: Produtos){
+    fun adiciona(produto: Produtos) {
         produtos.add(produto)
     }
 
