@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Orgs</string>
     <string name="new_product">Novo Produto</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="save">Salvar</string>
+    <string name="value">Valor</string>
+
+
 </resources>
