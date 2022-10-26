@@ -5,6 +5,8 @@
     <string name="description">Descrição</string>
     <string name="save">Salvar</string>
     <string name="value">Valor</string>
+    <string name="carregar">Carregar</string>
+    <string name="url_da_imagem">URL da imagem</string>
 
 
 </resources>

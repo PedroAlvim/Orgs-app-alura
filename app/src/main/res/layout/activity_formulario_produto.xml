@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/produto_1"
+            app:srcCompat="@drawable/imagem_padrao"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -32,15 +32,13 @@
             android:hint="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto_imagem"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/activity_formulario_produto_imagem">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_formulario_produto_nome"
-                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -58,8 +56,7 @@
                 android:id="@+id/activity_formulario_produto_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -77,10 +74,8 @@
                 android:id="@+id/activity_formulario_produto_valor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                />
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <Button
             android:id="@+id/activity_formulario_produto_botao_salvar"
