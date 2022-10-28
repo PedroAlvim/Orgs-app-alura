@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/drawable-hdpi/plano_de_fundo_arredondado.xml" value="0.1935" />
         <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/drawable/placeholder.xml" value="0.2135" />
         <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/drawable/plano_de_fundo_produto.xml" value="0.198" />
+        <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/layout/activity_detalhes_produto.xml" value="0.18541666666666667" />
         <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/layout/activity_formulario_produto.xml" value="0.3202247191011236" />
         <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/layout/activity_lista_produtos.xml" value="0.32407407407407407" />
         <entry key="..\:/estudo-dev/Kotlin/Orgs/app/src/main/res/layout/activity_main.xml" value="0.33" />
