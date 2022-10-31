@@ -12,7 +12,7 @@ import com.example.orgs.model.Produtos
 
 class ListaProdutosAdapter(
     private val context: Context,
-    produtos: List<Produtos>,
+    produtos: List<Produtos> = emptyList(),
     var quandoClicaNoItem: (produto: Produtos) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 

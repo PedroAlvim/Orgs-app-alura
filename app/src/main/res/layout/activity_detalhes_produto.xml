@@ -15,7 +15,7 @@
             android:id="@+id/activity_detalhes_produto_imagem"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:contentDescription="Imagem do produto"
+            android:contentDescription="@string/imagem_do_produto"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_detalhes_produto_nome"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
