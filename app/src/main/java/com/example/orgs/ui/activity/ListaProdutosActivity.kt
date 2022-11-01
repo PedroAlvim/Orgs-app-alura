@@ -3,7 +3,7 @@ package com.example.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
+import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 
@@ -55,6 +55,7 @@ class ListaProdutosActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
     }
 }
 
