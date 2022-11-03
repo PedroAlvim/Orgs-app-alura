@@ -15,15 +15,13 @@ import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.extensions.formataParaMoedaBrasileira
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produtos
-import com.example.orgs.ui.activity.CHAVE_PRODUTO
+import com.example.orgs.ui.activity.CHAVE_PRODUTO_ID
 import com.example.orgs.ui.activity.FormularioProdutoActivity
 
 class ListaProdutosAdapter(
     private val context: Context,
     produtos: List<Produtos> = emptyList(),
     var quandoClicaNoItem: (produto: Produtos) -> Unit = {},
-    var quandoClicaEmEditar: (produto: Produtos) -> Unit = {},
-
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private val produtos = produtos.toMutableList()
@@ -80,7 +78,7 @@ class ListaProdutosAdapter(
                 when (it.itemId) {
                     R.id.menu_detalhes_produto_editar -> {
                         Intent(context, FormularioProdutoActivity::class.java).apply {
-                            putExtra(CHAVE_PRODUTO, produto)
+                            putExtra(CHAVE_PRODUTO_ID, produto.id)
                             startActivity(context, this, null)
                         }
                     }
