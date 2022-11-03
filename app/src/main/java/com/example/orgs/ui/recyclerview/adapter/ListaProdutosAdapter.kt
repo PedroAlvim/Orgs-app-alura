@@ -17,6 +17,10 @@ import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produtos
 import com.example.orgs.ui.activity.CHAVE_PRODUTO_ID
 import com.example.orgs.ui.activity.FormularioProdutoActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListaProdutosAdapter(
     private val context: Context,
@@ -25,6 +29,8 @@ class ListaProdutosAdapter(
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private val produtos = produtos.toMutableList()
+
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     inner class ViewHolder(private val binding: ProdutoItemBinding) :
         RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
@@ -83,8 +89,15 @@ class ListaProdutosAdapter(
                         }
                     }
                     R.id.menu_detalhes_produto_remover -> {
-                        produtoDao.remove(produto)
-                        atualiza(produtoDao.buscaTodos())
+                        scope.launch {
+                            produtoDao.remove(produto)
+                            val buscaTodos = produtoDao.buscaTodos()
+                            withContext(Dispatchers.Main) {
+                                buscaTodos.collect{listaProdutos ->
+                                    atualiza(listaProdutos)
+                                }
+                            }
+                        }
                     }
                     else -> {}
                 }

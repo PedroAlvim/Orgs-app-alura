@@ -2,12 +2,14 @@ package com.example.orgs.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.database.dao.ProdutoDao
 import com.example.orgs.databinding.ActivityFormularioProdutoBinding
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produtos
 import com.example.orgs.ui.dialog.FormularioImagemDialog
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
@@ -39,21 +41,22 @@ class FormularioProdutoActivity : AppCompatActivity() {
         }
 
         tentaCarragarProduto()
+        tentaBuscarProdutos()
+
     }
 
     private fun tentaCarragarProduto() {
         produtoId = intent.getLongExtra(CHAVE_PRODUTO_ID, 0L)
     }
 
-    override fun onResume() {
-        super.onResume()
-        tentaBuscarProdutos()
-    }
-
     private fun tentaBuscarProdutos() {
-        produtoDao.buscaPorId(produtoId)?.let {
-            title = "Alterar produto"
-            preencheCampos(it)
+        lifecycleScope.launch {
+            produtoDao.buscaPorId(produtoId).collect { produto ->
+                produto?.let {
+                    title = "Alterar produto"
+                    preencheCampos(it)
+                }
+            }
         }
     }
 
@@ -71,8 +74,10 @@ class FormularioProdutoActivity : AppCompatActivity() {
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
 
-            produtoDao.salva(produtoNovo)
-            finish()
+            lifecycleScope.launch {
+                produtoDao.salva(produtoNovo)
+                finish()
+            }
         }
     }
 

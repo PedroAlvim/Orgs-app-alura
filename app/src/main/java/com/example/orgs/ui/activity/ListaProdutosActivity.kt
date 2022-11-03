@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.orgs.R
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.model.Produtos
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class ListaProdutosActivity : AppCompatActivity() {
 
@@ -31,11 +34,11 @@ class ListaProdutosActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraRecyclerView()
         configuraFab()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        adapter.atualiza(produtoDao.buscaTodos())
+        lifecycleScope.launch {
+            produtoDao.buscaTodos().collect{
+                adapter.atualiza(it)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -44,26 +47,32 @@ class ListaProdutosActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val produtosOrdenado: List<Produtos>? = when (item.itemId) {
-            R.id.menu_lista_produtos_ordenar_nome_asc ->
-                produtoDao.buscaTodosOrdenadorPorNomeAsc()
-            R.id.menu_lista_produtos_ordenar_nome_desc ->
-                produtoDao.buscaTodosOrdenadorPorNomeDesc()
-            R.id.menu_lista_produtos_ordenar_descricao_asc ->
-                produtoDao.buscaTodosOrdenadorPorDescricaoAsc()
-            R.id.menu_lista_produtos_ordenar_descricao_desc ->
-                produtoDao.buscaTodosOrdenadorPorDescricaoDesc()
-            R.id.menu_lista_produtos_ordenar_valor_asc ->
-                produtoDao.buscaTodosOrdenadorPorValorAsc()
-            R.id.menu_lista_produtos_ordenar_valor_desc ->
-                produtoDao.buscaTodosOrdenadorPorValorDesc()
-            R.id.menu_lista_produtos_ordenar_sem_ordem ->
-                produtoDao.buscaTodos()
-            else -> null
+        lifecycleScope.launch {
+            val produtosOrdenado: Flow<List<Produtos>>? = when (item.itemId) {
+                R.id.menu_lista_produtos_ordenar_nome_asc ->
+                    produtoDao.buscaTodosOrdenadorPorNomeAsc()
+                R.id.menu_lista_produtos_ordenar_nome_desc ->
+                    produtoDao.buscaTodosOrdenadorPorNomeDesc()
+                R.id.menu_lista_produtos_ordenar_descricao_asc ->
+                    produtoDao.buscaTodosOrdenadorPorDescricaoAsc()
+                R.id.menu_lista_produtos_ordenar_descricao_desc ->
+                    produtoDao.buscaTodosOrdenadorPorDescricaoDesc()
+                R.id.menu_lista_produtos_ordenar_valor_asc ->
+                    produtoDao.buscaTodosOrdenadorPorValorAsc()
+                R.id.menu_lista_produtos_ordenar_valor_desc ->
+                    produtoDao.buscaTodosOrdenadorPorValorDesc()
+                R.id.menu_lista_produtos_ordenar_sem_ordem ->
+                    produtoDao.buscaTodos()
+                else -> null
+            }
+
+            produtosOrdenado?.let {
+                it.collect{ listaProdutoOrdenado ->
+                    adapter.atualiza(listaProdutoOrdenado)
+                }
+            }
         }
-        produtosOrdenado?.let {
-            adapter.atualiza(it)
-        }
+
         return super.onOptionsItemSelected(item)
     }
 
